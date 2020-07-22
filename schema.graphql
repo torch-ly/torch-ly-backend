@@ -1,6 +1,12 @@
 scalar JSON
 scalar URL
 
+input PositionSquareInput {
+    point: PointInput!
+    rot: Int
+    size: Int
+}
+
 type PositionSquare {
     point: Point!
     rot: Int
@@ -26,6 +32,11 @@ type Player {
 
 type BackgroundLayer {
     layer: JSON!
+}
+
+input PointInput {
+    x: Int!
+    y: Int!
 }
 
 type Point {
@@ -63,6 +74,7 @@ type Query {
     getMeasurementsByID(id: ID!): Measurement
 }
 
-#type Mutation {
-#    addPhoto (name: String!, url: URL!, description: String): Photo!
-#}
+type Mutation {
+    addCharacter (name: String, token: URL!, pos: PositionSquareInput!, sheet: URL, visible: Boolean, players: [String!]!): Character!
+    updateCharacterPosition (x: Int!, y: Int!, id: String!): Character!
+}
