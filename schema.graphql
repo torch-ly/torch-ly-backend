@@ -13,7 +13,7 @@ type Character {
     token: URL!
     sheet: URL
     visible: Boolean
-    player: [Player!]!
+    players: [Player!]!
     id: ID!
 }
 
@@ -21,7 +21,7 @@ type Player {
     name: String!
     id: ID!
     gm: Boolean
-    character: [Character!] #TODO Ausrufezeichen
+    characters: [Character!] #TODO Ausrufezeichen
 }
 
 type BackgroundLayer {
