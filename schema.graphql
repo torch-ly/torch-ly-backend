@@ -1,0 +1,18 @@
+scalar URL
+
+type Photo {
+    id: ID!
+    name: String!
+    description: String
+    url: URL!
+}
+
+type Query {
+    totalPhotos: Int!
+    allPhotos: [Photo!]! 
+    getPhotoById (id: ID!): Photo
+}
+
+type Mutation {
+    addPhoto (name: String!, url: URL!, description: String): Photo!
+}
