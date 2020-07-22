@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "",
-  "main": "index.mjs",
+  "main": "index.js",
   "scripts": {
     "start": "nodemon -r esm -e mjs,js,graphql"
   },
@@ -12,7 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.13.1",
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
     "graphql": "^15.0.0",
+    "graphql-playground-middleware-express": "^1.7.18",
+    "graphql-scalars": "^1.2.2",
+    "mongodb": "^3.5.9",
     "nodemon": "^2.0.4"
   }
 }

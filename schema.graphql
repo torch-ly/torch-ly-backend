@@ -1,18 +1,68 @@
+scalar JSON
 scalar URL
 
-type Photo {
+type PositionSquare {
+    point: Point!
+    rot: Int
+    size: Int
+}
+
+type Character {
+    pos: PositionSquare
+    name: String
+    token: URL!
+    sheet: URL
+    visible: Boolean
+    player: [Player!]!
     id: ID!
+}
+
+type Player {
     name: String!
-    description: String
-    url: URL!
+    id: ID!
+    gm: Boolean
+    character: [Character!] #TODO Ausrufezeichen
+}
+
+type BackgroundLayer {
+    layer: JSON!
+}
+
+type Point {
+    x: Int!
+    y: Int!
+}
+
+type Arrow {
+    start: Point!
+    end: Point!
+}
+
+type Measurement {
+    arrows: [Arrow!]!
+    visibility: MeasurementVisibility
+    player: Player
+    id: ID!
+}
+
+enum MeasurementVisibility {
+    GM, All, Own
 }
 
 type Query {
-    totalPhotos: Int!
-    allPhotos: [Photo!]! 
-    getPhotoById (id: ID!): Photo
+    allPlayers: [Player!]!
+    totalPlayers: Int!
+    getPlayerByID(id: ID!): Player
+
+    allCharacters: [Character!]!
+    totalCharacters: Int!
+    getCharacterByID(id: ID!): Character
+
+    allMeasurements: [Measurement!]!
+    totalMeasurements: Int!
+    getMeasurementsByID(id: ID!): Measurement
 }
 
-type Mutation {
-    addPhoto (name: String!, url: URL!, description: String): Photo!
-}
+#type Mutation {
+#    addPhoto (name: String!, url: URL!, description: String): Photo!
+#}
