@@ -1,29 +1,50 @@
-import { ApolloServer } from "apollo-server-express";
+import { PubSub } from 'graphql-subscriptions';
+import { createServer } from 'http';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { execute, subscribe } from 'graphql';
 import { readFileSync } from "fs";
+import { makeExecutableSchema } from 'graphql-tools';
 import { resolvers } from "./resolvers";
-import { default as playground } from "graphql-playground-middleware-express";
-import express from "express";
 import { setupDB } from "./db";
 
 require("dotenv").config();
 
-const app = express();
-let context;
+const pubsub = new PubSub();
+const WS_PORT = 5000;
+const typeDefs = readFileSync("./schema.graphql", "utf-8");
 
-async function setup () {
-    context = {
-        db: await setupDB(),
-    };
+export let db;
 
-    const typeDefs = readFileSync("./schema.graphql", "utf-8");
-    const server = new ApolloServer({ typeDefs, resolvers, context });
-    server.applyMiddleware({ app });
+async function setup() {
 
-    app.get("/", (req, res) => res.end("Welcome to my API"));
-    app.get("/playground", playground({endpoint: "/graphql"}));
+    const websocketServer = createServer((request, response) => {
+        response.writeHead(404);
+        response.end();
+    });
 
-    app.listen({port: 4000}, () => console.info(`GraphQL Sevrer running @ http://localhost:4000${server.graphqlPath}`));
+    websocketServer.listen(WS_PORT, () => console.log(
+        `Websocket Server is now running on port ${WS_PORT}`
+    ));
 
+
+    db = await setupDB();
+
+    const schema = makeExecutableSchema({
+        typeDefs,
+        resolvers
+    });
+
+    const subscriptionServer = SubscriptionServer.create(
+        {
+            schema,
+            execute,
+            subscribe,
+        },
+        {
+            server: websocketServer,
+            path: '/graphql',
+        },
+    );
 }
 
 setup();
