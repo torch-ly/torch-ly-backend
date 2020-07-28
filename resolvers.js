@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
-import { GraphQLScalarType } from "graphql";
-import { Kind } from "graphql/language";
 import {db, pubsub} from "./index";
+
+let backgroundLayer = require("./backgroundLayerDefault.json");
 
 import {
     URLResolver,
@@ -48,7 +48,12 @@ export const resolvers = {
         // Measurements
         allMeasurements: async (parent, args) => await db.collection("measurement").find().toArray(),
         totalMeasurements: async (parent, args) => await db.collection("measurement").estimatedDocumentCount(),
-        getMeasurementsByID: async (parent, args) => await db.collection("measurement").findOne(ObjectId(args.id))
+        getMeasurementsByID: async (parent, args) => await db.collection("measurement").findOne(ObjectId(args.id)),
+
+        // Background Layer
+        getBackgroundLayer: () => ({
+            layer: JSON.stringify(backgroundLayer)
+        })
 
     },
     Mutation: {
@@ -79,11 +84,21 @@ export const resolvers = {
             pubsub.publish("character-update", {updateCharacter:character});
 
             return character;
+        },
+        updateBackgroundLayer: async (parent, args) => {
+            backgroundLayer = args;
+
+            pubsub.publish("background-update", {updateBackgroundLayer:args});
+
+            return args;
         }
     },
     Subscription: {
         updateCharacter: {
             subscribe: () => pubsub.asyncIterator("character-update")
+        },
+        updateBackgroundLayer: {
+            subscribe: () => pubsub.asyncIterator("background-update")
         }
     },
     Player: {
