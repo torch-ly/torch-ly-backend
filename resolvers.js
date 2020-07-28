@@ -90,8 +90,6 @@ export const resolvers = {
 
             pubsub.publish("background-update", {updateBackgroundLayer:args});
 
-            console.log(backgroundLayer)
-
             return {layer: backgroundLayer};
         }
     },
