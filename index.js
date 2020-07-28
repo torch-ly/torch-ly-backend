@@ -9,7 +9,7 @@ import { setupDB } from "./db";
 
 require("dotenv").config();
 
-const pubsub = new PubSub();
+export const pubsub = new PubSub();
 const WS_PORT = 5000;
 const typeDefs = readFileSync("./schema.graphql", "utf-8");
 

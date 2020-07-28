@@ -78,3 +78,7 @@ type Mutation {
     addCharacter (name: String, token: URL!, pos: PositionSquareInput!, sheet: URL, visible: Boolean, players: [String!]!): Character!
     updateCharacterPosition (x: Int!, y: Int!, id: String!): Character!
 }
+
+type Subscription {
+    updateCharacter: Character!
+}

@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { GraphQLScalarType } from "graphql";
 import { Kind } from "graphql/language";
-import {db} from "./index";
+import {db, pubsub} from "./index";
 
 import {
     URLResolver,
@@ -52,17 +52,6 @@ export const resolvers = {
 
     },
     Mutation: {
-        /*
-        addPhoto: async (parent, args) => {
-            let photo = {
-                ...args,
-            };
-
-            const { insertedIds } = await db.collection("photos").insertOne(photo);
-            photo.id = insertedIds;
-
-            return photo;
-        }*/
         addCharacter: async (parent, args) => {
             let character = {
                 ...args,
@@ -78,15 +67,25 @@ export const resolvers = {
 
             return character;
         },
-        updateCharacterPosition: async (parent, args) => (await db.collection("characters").findOneAndUpdate(
+        updateCharacterPosition: async (parent, args) => {
+            let character = (await db.collection("characters").findOneAndUpdate(
                 { _id: ObjectId(args.id)},
                 {
                     $set: { "pos.point.x": args.x, "pos.point.y": args.y},
                 },
-            {returnOriginal: false}
-            )).value
-    },
+                {returnOriginal: false}
+            )).value;
 
+            pubsub.publish("character-update", {updateCharacter:character});
+
+            return character;
+        }
+    },
+    Subscription: {
+        updateCharacter: {
+            subscribe: () => pubsub.asyncIterator("character-update")
+        }
+    },
     Player: {
         id: parent => parent.id || parent._id,
         gm: parent => process.env.GM.includes(parent.id || parent._id),
