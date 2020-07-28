@@ -52,7 +52,7 @@ export const resolvers = {
 
         // Background Layer
         getBackgroundLayer: () => ({
-            layer: JSON.stringify(backgroundLayer)
+            layer: backgroundLayer
         })
 
     },
@@ -85,12 +85,14 @@ export const resolvers = {
 
             return character;
         },
-        updateBackgroundLayer: async (parent, args) => {
-            backgroundLayer = args;
+        updateBackgroundLayer: (parent, args) => {
+            backgroundLayer = args.layer;
 
             pubsub.publish("background-update", {updateBackgroundLayer:args});
 
-            return args;
+            console.log(backgroundLayer)
+
+            return {layer: backgroundLayer};
         }
     },
     Subscription: {
