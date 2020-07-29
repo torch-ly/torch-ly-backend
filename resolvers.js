@@ -8,7 +8,7 @@ import {
     JSONResolver
 } from 'graphql-scalars';
 
-export const resolvers = {
+const resolvers = {
     Query: {
         // Players
         allPlayers: async (parent, args) => await db.collection("players").find().toArray(),
@@ -69,6 +69,8 @@ export const resolvers = {
 
             const { insertedIds } = await db.collection("characters").insertOne(character);
             character.id = insertedIds;
+
+            pubsub.publish("character-update", {updateCharacter:character});
 
             return character;
         },
@@ -134,3 +136,5 @@ export const resolvers = {
     URL: URLResolver,
     JSON: JSONResolver
 };
+
+export default resolvers;

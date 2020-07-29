@@ -4,7 +4,7 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
 import { readFileSync } from "fs";
 import { makeExecutableSchema } from 'graphql-tools';
-import { resolvers } from "./resolvers";
+import resolvers from "./resolvers";
 import { setupDB } from "./db";
 
 require("dotenv").config();
