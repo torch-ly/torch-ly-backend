@@ -4,7 +4,7 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
 import { readFileSync } from "fs";
 import { makeExecutableSchema } from 'graphql-tools';
-import resolvers from "./resolvers";
+import resolvers, {validateToken} from "./resolvers";
 import { setupDB } from "./db";
 
 require("dotenv").config();
@@ -34,11 +34,19 @@ async function setup() {
         resolvers
     });
 
-    const subscriptionServer = SubscriptionServer.create(
+    SubscriptionServer.create(
         {
             schema,
             execute,
             subscribe,
+            onConnect: (connectionParams) => {
+                return validateToken(connectionParams.authID)
+                    .then(user => {
+                        return {
+                            currentUser: user,
+                        };
+                    });
+            }
         },
         {
             server: websocketServer,
@@ -49,5 +57,5 @@ async function setup() {
 
 setup();
 
-process.on('SIGINT', () => context.db.close());
-process.on('SIGTERM', () => context.db.close());
+process.on('SIGINT', () => db.close());
+process.on('SIGTERM', () => db.close());

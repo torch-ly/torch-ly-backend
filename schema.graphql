@@ -64,6 +64,7 @@ type Query {
     allPlayers: [Player!]!
     totalPlayers: Int!
     getPlayerByID(id: ID!): Player
+    me: Player
 
     allCharacters: [Character!]!
     totalCharacters: Int!

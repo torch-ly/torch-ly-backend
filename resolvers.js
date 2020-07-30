@@ -8,15 +8,25 @@ import {
     JSONResolver
 } from 'graphql-scalars';
 
+export function validateToken(authID) {
+    return new Promise(async (resolve, reject) => {
+
+        let user = await db.collection("players").findOne({authID});
+
+        resolve(user);
+    });
+}
+
 const resolvers = {
     Query: {
         // Players
         allPlayers: async (parent, args) => await db.collection("players").find().toArray(),
         totalPlayers: async (parent, args) => await db.collection("players").estimatedDocumentCount(),
         getPlayerByID: async (parent, args) => await db.collection("players").findOne(ObjectId(args.id)),
+        me: (parent, args, context) => context.currentUser,
 
         // Characters
-        allCharacters: async (parent, args) => {
+        allCharacters: async (parent, args, context) => {
             return await db.collection("characters").aggregate([
                 {
                     "$lookup": {
