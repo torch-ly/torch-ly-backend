@@ -1,8 +1,13 @@
 import { MongoClient } from "mongodb";
 
 export async function setupDB () {
-    const mongoURL = "mongodb://" + process.env.DB_HOST + "/torch-ly-backend-global";
+    let user = process.env.DB_USER, pwd = process.env.DB_PASSWORD;
+
+    const mongoURL = "mongodb://" + user + ":" + pwd + "@" + process.env.DB_HOST + "/torchly-backend?authSource=admin";
+
+    console.log(mongoURL)
 
     const mongoClient = await MongoClient.connect(mongoURL, { useUnifiedTopology: true });
+
     return mongoClient.db();
 }
