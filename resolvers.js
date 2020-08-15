@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import {db, pubsub} from "./index";
-import {backgroundLayer} from "./map";
+import {backgroundLayer, getAllMaps, loadMap, saveMap} from "./map";
 
 import {
     URLResolver,
@@ -62,7 +62,11 @@ const resolvers = {
         // Background Layer
         getBackgroundLayer: () => ({
             layer: backgroundLayer
-        })
+        }),
+
+        getMaps: () => {
+            return getAllMaps();
+        }
 
     },
     Mutation: {
@@ -98,6 +102,17 @@ const resolvers = {
         },
         updateBackgroundLayer: (parent, args) => {
             backgroundLayer = args.layer;
+
+            saveMap();
+
+            pubsub.publish("background-update", {updateBackgroundLayer:args});
+
+            return {layer: backgroundLayer};
+        },
+        loadMap: (parent, args) => {
+            let name = args.name;
+
+            loadMap(name);
 
             pubsub.publish("background-update", {updateBackgroundLayer:args});
 
