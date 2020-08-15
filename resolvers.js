@@ -1,7 +1,6 @@
 import { ObjectId } from "mongodb";
 import {db, pubsub} from "./index";
-
-let backgroundLayer = require("./backgroundLayerDefault.json");
+import {backgroundLayer} from "./map";
 
 import {
     URLResolver,
