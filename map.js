@@ -22,14 +22,15 @@ export function loadMap(name) {
 }
 
 export function saveMap(name) {
-    fs.writeFileSync("./maps/" + name || lastMap, JSON.stringify(name ? [] : backgroundLayer));
+    fs.writeFileSync("./maps/" + (name ? name + ".json" : lastMap), JSON.stringify(name ? [] : backgroundLayer));
+    loadMap(name);
 }
 
 export function getAllMaps() {
     return fs.readdirSync("./maps/").map(a => {
         return {
             name: a.replace(".json", ""),
-            selcted: a === lastMap
+            selected: a === lastMap
         }
     });
 }

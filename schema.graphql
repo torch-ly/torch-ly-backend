@@ -89,7 +89,7 @@ type Mutation {
     updateCharacterPosition (x: Int!, y: Int!, id: String!): Character!
     updateBackgroundLayer (layer: JSON!): BackgroundLayer!
     loadMap(name: String!): BackgroundLayer!
-    createMap(name: String!): [String!]!
+    createMap(name: String!): [Map!]!
 }
 
 type Subscription {
