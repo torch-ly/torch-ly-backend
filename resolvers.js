@@ -117,6 +117,10 @@ const resolvers = {
             pubsub.publish("background-update", {updateBackgroundLayer: {layer: backgroundLayer}});
 
             return {layer: backgroundLayer};
+        },
+        createMap: (parent, args) => {
+            saveMap(args.name);
+            return getAllMaps();
         }
     },
     Subscription: {
