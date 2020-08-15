@@ -21,10 +21,15 @@ export function loadMap(name) {
     backgroundLayer = JSON.parse(output);
 }
 
-export function saveMap() {
-    fs.writeFileSync("./maps/" + lastMap, JSON.stringify(backgroundLayer));
+export function saveMap(name) {
+    fs.writeFileSync("./maps/" + name || lastMap, JSON.stringify(name ? [] : backgroundLayer));
 }
 
 export function getAllMaps() {
-    return fs.readdirSync("./maps/").map(a => a.replace(".json", ""));
+    return fs.readdirSync("./maps/").map(a => {
+        return {
+            name: a.replace(".json", ""),
+            selcted: a === lastMap
+        }
+    });
 }
