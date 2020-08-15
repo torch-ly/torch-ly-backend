@@ -1,6 +1,8 @@
 import fs from "fs";
 
-let lastMap = fs.readFileSync("last-map.txt", "utf-8");
+let lastMap = fs.readFileSync("last-map.txt", "utf-8").replace(".json", "").replace("\n", "").replace("\r", "");
+
+console.log(lastMap)
 export let backgroundLayer = {};
 
 loadMap(lastMap);
@@ -10,10 +12,12 @@ function saveLastMap() {
 }
 
 export function loadMap(name) {
+    console.log("Loading ", name)
+
     lastMap = name + ".json";
     saveLastMap();
 
-    let output = fs.readFileSync("./maps/" + name, "utf-8");
+    let output = fs.readFileSync("./maps/" + lastMap, "utf-8");
     backgroundLayer = JSON.parse(output);
 }
 

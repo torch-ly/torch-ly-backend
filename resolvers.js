@@ -114,7 +114,7 @@ const resolvers = {
 
             loadMap(name);
 
-            pubsub.publish("background-update", {updateBackgroundLayer:args});
+            pubsub.publish("background-update", {updateBackgroundLayer: {layer: backgroundLayer}});
 
             return {layer: backgroundLayer};
         }
