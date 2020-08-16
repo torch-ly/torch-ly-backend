@@ -3,7 +3,7 @@ import fs from "fs";
 let lastMap = fs.readFileSync("last-map.txt", "utf-8").replace(".json", "").replace("\n", "").replace("\r", "");
 
 console.log(lastMap)
-export let backgroundLayer = {};
+export let backgroundLayer = [];
 
 loadMap(lastMap);
 
