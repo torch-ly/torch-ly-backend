@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import {db, pubsub} from "./index";
-import {backgroundLayer, getAllMaps, loadMap, saveMap} from "./map";
+import {backgroundLayer, deleteMap, getAllMaps, loadMap, saveMap} from "./map";
 
 import {
     URLResolver,
@@ -120,6 +120,10 @@ const resolvers = {
         },
         createMap: (parent, args) => {
             saveMap(args.name);
+            return getAllMaps();
+        },
+        deleteMap: (parent, args) => {
+            deleteMap(args.name);
             return getAllMaps();
         }
     },

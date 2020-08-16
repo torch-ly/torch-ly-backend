@@ -90,6 +90,7 @@ type Mutation {
     updateBackgroundLayer (layer: JSON!): BackgroundLayer!
     loadMap(name: String!): BackgroundLayer!
     createMap(name: String!): [Map!]!
+    deleteMap(name: String!): [Map!]!
 }
 
 type Subscription {

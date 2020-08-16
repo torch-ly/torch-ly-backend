@@ -2,7 +2,7 @@ import fs from "fs";
 
 let lastMap = fs.readFileSync("last-map.txt", "utf-8").replace(".json", "").replace("\n", "").replace("\r", "");
 
-console.log(lastMap)
+console.log("Loading last map: ", lastMap)
 export let backgroundLayer = [];
 
 loadMap(lastMap);
@@ -19,6 +19,13 @@ export function loadMap(name) {
 
     let output = fs.readFileSync("./maps/" + lastMap, "utf-8");
     backgroundLayer = JSON.parse(output);
+}
+
+export function deleteMap(name) {
+    if (lastMap.replace(".json", "") === name)
+        throw new Error("You cannot delete the last or current map");
+
+    fs.unlinkSync("./maps/" + name + ".json");
 }
 
 export function saveMap(name) {
