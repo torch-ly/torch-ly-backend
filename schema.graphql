@@ -86,6 +86,7 @@ type Query {
 
 type Mutation {
     addCharacter (name: String, token: URL!, pos: PositionSquareInput!, sheet: URL, visible: Boolean, players: [String!]!): Character!
+    removeCharacter (id: String!): Boolean
     updateCharacterPosition (x: Int!, y: Int!, id: String!): Character!
     updateBackgroundLayer (layer: JSON!): BackgroundLayer!
     loadMap(name: String!): BackgroundLayer!

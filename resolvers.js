@@ -100,6 +100,13 @@ const resolvers = {
 
             return character;
         },
+        removeCharacter: async (parent, args) => {
+            let removed = await db.collection("characters").remove(
+                {_id: ObjectId(args.id)}
+            )
+
+            return removed.nRemoved > 0;
+        },
         updateBackgroundLayer: (parent, args) => {
             setBackgroundLayer(args.layer);
 
