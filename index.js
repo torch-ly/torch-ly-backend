@@ -6,12 +6,18 @@ import { readFileSync } from "fs";
 import { makeExecutableSchema } from 'graphql-tools';
 import resolvers, {validateToken} from "./resolvers";
 import { setupDB } from "./db";
+import {loadMonstersFromFile} from "./monsters";
 
 require("dotenv").config();
 
 export const pubsub = new PubSub();
 const WS_PORT = 5000;
 const typeDefs = readFileSync("./schema.graphql", "utf-8");
+
+// does not work due to performance issues
+// loadMonstes().then(() => console.log(monsters.slice(10))).catch(console.error);
+
+loadMonstersFromFile()
 
 export let db;
 

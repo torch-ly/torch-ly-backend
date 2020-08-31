@@ -82,6 +82,8 @@ type Query {
     getBackgroundLayer: BackgroundLayer!
 
     getMaps: [Map!]!
+
+    getMonsters: JSON!
 }
 
 type Mutation {

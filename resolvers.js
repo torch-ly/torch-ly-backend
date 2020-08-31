@@ -6,6 +6,7 @@ import {
     URLResolver,
     JSONResolver
 } from 'graphql-scalars';
+import {monsters} from "./monsters";
 
 export function validateToken(authID) {
     return new Promise(async (resolve, reject) => {
@@ -66,6 +67,10 @@ const resolvers = {
 
         getMaps: () => {
             return getAllMaps();
+        },
+
+        getMonsters: () => {
+            return monsters;
         }
 
     },
