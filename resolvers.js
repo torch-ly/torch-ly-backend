@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import {db, pubsub} from "./index";
-import {backgroundLayer, deleteMap, getAllMaps, loadMap, saveMap} from "./map";
+import {backgroundLayer, deleteMap, getAllMaps, loadMap, saveMap, setBackgroundLayer} from "./map";
 
 import {
     URLResolver,
@@ -101,7 +101,7 @@ const resolvers = {
             return character;
         },
         updateBackgroundLayer: (parent, args) => {
-            backgroundLayer = args.layer;
+            setBackgroundLayer(args.layer);
 
             saveMap();
 

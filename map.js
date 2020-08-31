@@ -30,7 +30,11 @@ export function deleteMap(name) {
 
 export function saveMap(name) {
     fs.writeFileSync("./maps/" + (name ? name + ".json" : lastMap), JSON.stringify(name ? [] : backgroundLayer));
-    loadMap(name);
+    loadMap((name ? name + ".json" : lastMap).replace(".json", ""));
+}
+
+export function setBackgroundLayer (layer) {
+    backgroundLayer = layer;
 }
 
 export function getAllMaps() {
