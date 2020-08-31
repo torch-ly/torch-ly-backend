@@ -5,8 +5,6 @@ export async function setupDB () {
 
     const mongoURL = "mongodb://" + user + ":" + pwd + "@" + process.env.DB_HOST + "/torch-ly-backend?authSource=admin";
 
-    console.log(mongoURL)
-
     const mongoClient = await MongoClient.connect(mongoURL, { useUnifiedTopology: true });
 
     return mongoClient.db();
