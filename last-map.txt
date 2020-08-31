@@ -1,1 +1,1 @@
-other.json
+default.json
