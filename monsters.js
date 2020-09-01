@@ -4,7 +4,11 @@ import fs from "fs";
 export let monsters = [];
 
 export function loadMonstersFromFile () {
-    monsters = fs.readFileSync("./monsters.json","utf-8") || [];
+    try {
+        monsters = fs.readFileSync("./monsters.json","utf-8") || [];
+    } catch {
+        console.error("monsters.json not available");
+    }
 }
 
 /*
