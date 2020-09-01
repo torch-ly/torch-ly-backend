@@ -125,6 +125,8 @@ const resolvers = {
             saveMap();
 
             pubsub.publish("fogofwar-update", {updateFogOfWar: {polygons: args.json}})
+
+            return {polygons: fogOfWar};
         },
         removeCharacter: async (parent, args) => {
             let removed = await db.collection("characters").deleteOne(
