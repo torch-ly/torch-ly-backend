@@ -106,6 +106,22 @@ const resolvers = {
 
             return character;
         },
+        setCharacterRotationAndSize: async (parent, args) => {
+            let character = (await db.collection("characters").findOneAndUpdate(
+                { _id: ObjectId(args.id)},
+                {
+                    $set: {
+                        "pos.size": args.size,
+                        "pos.rot": args.rot,
+                    },
+                },
+                {returnOriginal: false}
+            )).value;
+
+            pubsub.publish("character-update", {updateCharacter: character});
+
+            return character;
+        },
         updateCharacterPosition: async (parent, args) => {
             let character = (await db.collection("characters").findOneAndUpdate(
                 { _id: ObjectId(args.id)},
