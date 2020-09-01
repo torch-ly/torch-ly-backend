@@ -16,12 +16,13 @@ export async function loadMonstes() {
     let res = await (await fetch("https://5e.tools/data/bestiary/index.json?v=1.110.1")).json();
 
     let books = Object.entries(res);
+    let monstersNew = [];
 
     for (let book of books) {
         let url = "http://5e.tools/data/bestiary/" + String(book[1]);
         let data = await (await fetch(url)).json()
         console.log("Got data for book", book[0])
-        monsters.push(data.monster);
+        monstersNew.push(data.monster);
     }
 
     function compare(a, b) {
@@ -32,6 +33,5 @@ export async function loadMonstes() {
         return 0;
     }
 
-    monsters = monsters.flat().sort(compare)
-
+    monstersNew = monstersNew.flat().sort(compare)
 }*/

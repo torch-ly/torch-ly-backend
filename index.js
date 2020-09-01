@@ -6,7 +6,7 @@ import { readFileSync } from "fs";
 import { makeExecutableSchema } from 'graphql-tools';
 import resolvers, {validateToken} from "./resolvers";
 import { setupDB } from "./db";
-import {loadMonstersFromFile} from "./monsters";
+import {loadMonstersFromFile, loadMonstes} from "./monsters";
 
 require("dotenv").config();
 
