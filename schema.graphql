@@ -66,7 +66,7 @@ enum MeasurementVisibility {
 }
 
 type FogOfWar {
-    polygons: [[Point!]!]!
+    polygons: JSON!
 }
 
 type Query {
@@ -85,6 +85,8 @@ type Query {
 
     getBackgroundLayer: BackgroundLayer!
 
+    getFogOfWar: FogOfWar!
+
     getMaps: [Map!]!
 
     getMonsters: JSON!
@@ -93,8 +95,12 @@ type Query {
 type Mutation {
     addCharacter (name: String, token: URL!, pos: PositionSquareInput!, sheet: URL, visible: Boolean, players: [String!]!): Character!
     removeCharacter (id: String!): Boolean
+
     updateCharacterPosition (x: Int!, y: Int!, id: String!): Character!
     updateBackgroundLayer (layer: JSON!): BackgroundLayer!
+
+    updateFogOfWar (json: JSON!): FogOfWar!
+
     loadMap(name: String!): BackgroundLayer!
     createMap(name: String!): [Map!]!
     deleteMap(name: String!): [Map!]!
@@ -103,4 +109,5 @@ type Mutation {
 type Subscription {
     updateCharacter: Character!
     updateBackgroundLayer: BackgroundLayer!
+    updateFogOfWar: FogOfWar!
 }

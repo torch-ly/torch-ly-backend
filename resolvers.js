@@ -1,6 +1,15 @@
 import { ObjectId } from "mongodb";
 import {db, pubsub} from "./index";
-import {backgroundLayer, deleteMap, getAllMaps, loadMap, saveMap, setBackgroundLayer} from "./map";
+import {
+    backgroundLayer,
+    deleteMap,
+    fogOfWar,
+    getAllMaps,
+    loadMap,
+    saveMap,
+    setBackgroundLayer,
+    setFogOfWar
+} from "./map";
 
 import {
     URLResolver,
@@ -71,6 +80,11 @@ const resolvers = {
 
         getMonsters: () => {
             return monsters;
+        },
+
+        // Fog Of War
+        getFogOfWar: () => {
+            return {polygons: fogOfWar};
         }
 
     },
@@ -105,6 +119,13 @@ const resolvers = {
 
             return character;
         },
+        updateFogOfWar: (parent, args) => {
+            setFogOfWar(args.json);
+
+            saveMap();
+
+            pubsub.publish("fogofwar-update", {updateFogOfWar: {polygons: args.json}})
+        },
         removeCharacter: async (parent, args) => {
             let removed = await db.collection("characters").deleteOne(
                 {_id: ObjectId(args.id)}
@@ -117,7 +138,7 @@ const resolvers = {
 
             saveMap();
 
-            pubsub.publish("background-update", {updateBackgroundLayer:args});
+            pubsub.publish("background-update", {updateBackgroundLayer: args});
 
             return {layer: backgroundLayer};
         },
@@ -145,6 +166,9 @@ const resolvers = {
         },
         updateBackgroundLayer: {
             subscribe: () => pubsub.asyncIterator("background-update")
+        },
+        updateFogOfWar: {
+             subscribe: () => pubsub.asyncIterator("fogofwar-update")
         }
     },
     Player: {

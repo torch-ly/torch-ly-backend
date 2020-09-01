@@ -2,8 +2,8 @@ import fs from "fs";
 
 let lastMap = fs.readFileSync("last-map.txt", "utf-8").replace(".json", "").replace("\n", "").replace("\r", "");
 
-console.log("Loading last map: ", lastMap)
 export let backgroundLayer = [];
+export let fogOfWar = [];
 
 loadMap(lastMap);
 
@@ -11,14 +11,17 @@ function saveLastMap() {
     fs.writeFileSync("last-map.txt", lastMap);
 }
 
+function setLastMap(name) {
+    lastMap = name ? name + ".json" : lastMap;
+}
+
 export function loadMap(name) {
-    console.log("Loading ", name)
+    setLastMap(name);
 
-    lastMap = name + ".json";
-    saveLastMap();
+    let output = JSON.parse(fs.readFileSync("./maps/" + lastMap, "utf-8"));
 
-    let output = fs.readFileSync("./maps/" + lastMap, "utf-8");
-    backgroundLayer = JSON.parse(output);
+    backgroundLayer = output.bg;
+    fogOfWar = output.fog;
 }
 
 export function deleteMap(name) {
@@ -29,12 +32,22 @@ export function deleteMap(name) {
 }
 
 export function saveMap(name) {
-    fs.writeFileSync("./maps/" + (name ? name + ".json" : lastMap), JSON.stringify(name ? [] : backgroundLayer));
-    loadMap((name ? name + ".json" : lastMap).replace(".json", ""));
+    setLastMap(name);
+
+    fs.writeFileSync("./maps/" + lastMap, JSON.stringify(name ? [] : getFileContent()));
+    saveLastMap();
+}
+
+function getFileContent() {
+    return {bg: backgroundLayer, fog: fogOfWar}
 }
 
 export function setBackgroundLayer (layer) {
     backgroundLayer = layer;
+}
+
+export function setFogOfWar (fog) {
+    fogOfWar = fog;
 }
 
 export function getAllMaps() {
