@@ -65,6 +65,10 @@ enum MeasurementVisibility {
     GM, All, Own
 }
 
+type FogOfWar {
+    polygons: [[Point!]!]!
+}
+
 type Query {
     allPlayers: [Player!]!
     totalPlayers: Int!
