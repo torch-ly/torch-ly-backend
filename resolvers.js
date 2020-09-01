@@ -106,7 +106,7 @@ const resolvers = {
             return character;
         },
         removeCharacter: async (parent, args) => {
-            let removed = await db.collection("characters").remove(
+            let removed = await db.collection("characters").deleteOne(
                 {_id: ObjectId(args.id)}
             )
 
