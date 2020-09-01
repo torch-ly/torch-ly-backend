@@ -3,13 +3,13 @@ scalar URL
 
 input PositionSquareInput {
     point: PointInput!
-    rot: Int
+    rot: Float
     size: Int
 }
 
 type PositionSquare {
     point: Point!
-    rot: Int
+    rot: Float
     size: Int
 }
 
@@ -94,7 +94,7 @@ type Query {
 
 type Mutation {
     addCharacter (name: String, token: URL!, pos: PositionSquareInput!, sheet: URL, visible: Boolean, players: [String!]!): Character!
-    setCharacterRotationAndSize (id: String!, rot: Int!, size: Int!): Character!
+    setCharacterRotationAndSize (id: String!, rot: Float!, size: Int!): Character!
     removeCharacter (id: String!): Boolean
 
     updateCharacterPosition (x: Int!, y: Int!, id: String!): Character!
