@@ -4,9 +4,10 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
 import { readFileSync } from "fs";
 import { makeExecutableSchema } from 'graphql-tools';
-import resolvers, {validateToken} from "./resolvers";
+import resolvers from "./resolvers";
 import { setupDB } from "./db";
-import {loadMonstersFromFile} from "./monsters";
+import {loadMonstersFromFile} from "./entities/monster";
+import {validateAuthID} from "./entities/players";
 
 require("dotenv").config();
 
@@ -46,7 +47,7 @@ async function setup() {
             execute,
             subscribe,
             onConnect: (connectionParams) => {
-                return validateToken(connectionParams.authID)
+                return validateAuthID(connectionParams.authID)
                     .then(user => {
                         return {
                             currentUser: user,

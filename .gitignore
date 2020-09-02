@@ -1,5 +1,5 @@
 /node_modules/
 /.env
 /.idea/
-/maps/
-monsters.json
+/entities/map/maps/
+/entities/monster/monsters.json

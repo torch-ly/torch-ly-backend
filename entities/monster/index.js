@@ -5,10 +5,16 @@ export let monsters = [];
 
 export function loadMonstersFromFile () {
     try {
-        monsters = fs.readFileSync("./monsters.json","utf-8") || [];
+        monsters = fs.readFileSync("entities/monster/monsters.json","utf-8") || [];
     } catch {
         console.error("monsters.json not available");
     }
+}
+
+export const queries = {
+    getMonsters: () => {
+        return monsters;
+    },
 }
 
 /*

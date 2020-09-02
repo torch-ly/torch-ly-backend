@@ -1,6 +1,9 @@
 import fs from "fs";
 
-let lastMap = fs.readFileSync("last-map.txt", "utf-8").replace(".json", "").replace("\n", "").replace("\r", "");
+const baseDir = "entities/map/";
+const mapDir = baseDir + "maps/";
+
+let lastMap = fs.readFileSync(baseDir + "last-map.txt", "utf-8").replace(".json", "").replace("\n", "").replace("\r", "");
 
 export let backgroundLayer = [];
 export let fogOfWar = [];
@@ -9,7 +12,7 @@ export let viewport = [1,0,0,1,0,0];
 loadMap(lastMap);
 
 function saveLastMap() {
-    fs.writeFileSync("last-map.txt", lastMap);
+    fs.writeFileSync(baseDir + "last-map.txt", lastMap);
 }
 
 function setLastMap(name) {
@@ -19,7 +22,7 @@ function setLastMap(name) {
 export function loadMap(name) {
     setLastMap(name);
 
-    let output = JSON.parse(fs.readFileSync("./maps/" + lastMap, "utf-8"));
+    let output = JSON.parse(fs.readFileSync(mapDir + lastMap, "utf-8"));
 
     backgroundLayer = output.bg;
     fogOfWar = output.fog;
@@ -29,13 +32,13 @@ export function deleteMap(name) {
     if (lastMap.replace(".json", "") === name)
         throw new Error("You cannot delete the last or current map");
 
-    fs.unlinkSync("./maps/" + name + ".json");
+    fs.unlinkSync(mapDir + name + ".json");
 }
 
 export function saveMap(name) {
     setLastMap(name);
 
-    fs.writeFileSync("./maps/" + lastMap, JSON.stringify(name ? [] : getFileContent()));
+    fs.writeFileSync(mapDir + lastMap, JSON.stringify(name ? [] : getFileContent()));
     saveLastMap();
 }
 
@@ -56,7 +59,7 @@ export function setViewport (matrix) {
 }
 
 export function getAllMaps() {
-    return fs.readdirSync("./maps/").map(a => {
+    return fs.readdirSync(mapDir).map(a => {
         return {
             name: a.replace(".json", ""),
             selected: a === lastMap
