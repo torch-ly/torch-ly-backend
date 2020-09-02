@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "nodemon -r esm -e mjs,js,graphql"
+    "start": "nodemon -r esm -e mjs,js,graphql,env"
   },
   "keywords": [],
   "author": "",

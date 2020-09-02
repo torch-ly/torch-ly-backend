@@ -7,7 +7,7 @@ let lastMap = fs.readFileSync(baseDir + "last-map.txt", "utf-8").replace(".json"
 
 export let backgroundLayer = [];
 export let fogOfWar = [];
-export let viewport = [1,0,0,1,0,0];
+export let viewport = { scale: { x: 1, y: 1 }, x: 0, y: 0 };
 
 loadMap(lastMap);
 
