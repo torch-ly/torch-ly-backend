@@ -4,6 +4,7 @@ let lastMap = fs.readFileSync("last-map.txt", "utf-8").replace(".json", "").repl
 
 export let backgroundLayer = [];
 export let fogOfWar = [];
+export let viewport = [1,0,0,1,0,0];
 
 loadMap(lastMap);
 
@@ -48,6 +49,10 @@ export function setBackgroundLayer (layer) {
 
 export function setFogOfWar (fog) {
     fogOfWar = fog;
+}
+
+export function setViewport (matrix) {
+    viewport = matrix;
 }
 
 export function getAllMaps() {

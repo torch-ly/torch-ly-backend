@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import {ObjectId} from "mongodb";
 import {db, pubsub} from "./index";
 import {
     backgroundLayer,
@@ -8,7 +8,7 @@ import {
     loadMap,
     saveMap,
     setBackgroundLayer,
-    setFogOfWar
+    setFogOfWar, setViewport, viewport
 } from "./map";
 
 import {
@@ -53,7 +53,7 @@ const resolvers = {
                 $match: {
                     _id: ObjectId(args.id)
                 }
-            },{
+            }, {
                 "$lookup": {
                     "from": "players",
                     "localField": "players",
@@ -85,6 +85,11 @@ const resolvers = {
         // Fog Of War
         getFogOfWar: () => {
             return {polygons: fogOfWar};
+        },
+
+        // viewport
+        getViewport: () => {
+            return {matrix: viewport};
         }
 
     },
@@ -99,10 +104,10 @@ const resolvers = {
                 character.players[i] = ObjectId(character.players[i]);
             }
 
-            const { insertedIds } = await db.collection("characters").insertOne(character);
+            const {insertedIds} = await db.collection("characters").insertOne(character);
             character.id = insertedIds;
 
-            pubsub.publish("character-update", {updateCharacter:character});
+            pubsub.publish("character-update", {updateCharacter: character});
 
             return character;
         },
@@ -124,14 +129,14 @@ const resolvers = {
         },
         updateCharacterPosition: async (parent, args) => {
             let character = (await db.collection("characters").findOneAndUpdate(
-                { _id: ObjectId(args.id)},
+                {_id: ObjectId(args.id)},
                 {
-                    $set: { "pos.point.x": args.x, "pos.point.y": args.y},
+                    $set: {"pos.point.x": args.x, "pos.point.y": args.y},
                 },
                 {returnOriginal: false}
             )).value;
 
-            pubsub.publish("character-update", {updateCharacter:character});
+            pubsub.publish("character-update", {updateCharacter: character});
 
             return character;
         },
@@ -143,6 +148,13 @@ const resolvers = {
             pubsub.publish("fogofwar-update", {updateFogOfWar: {polygons: args.json}})
 
             return {polygons: fogOfWar};
+        },
+        updateViewport: (parent, args) => {
+            setViewport(args.matrix);
+
+            pubsub.publish("viewport-update", {updateViewport: {matrix: args.matrix}});
+
+            return {matrix: args.matrix};
         },
         removeCharacter: async (parent, args) => {
             let removed = await db.collection("characters").deleteOne(
@@ -186,7 +198,10 @@ const resolvers = {
             subscribe: () => pubsub.asyncIterator("background-update")
         },
         updateFogOfWar: {
-             subscribe: () => pubsub.asyncIterator("fogofwar-update")
+            subscribe: () => pubsub.asyncIterator("fogofwar-update")
+        },
+        updateViewport: {
+            subscribe: () => pubsub.asyncIterator("viewport-update")
         }
     },
     Player: {
@@ -204,14 +219,14 @@ const resolvers = {
             if (parent.players.length === 0)
                 return parent.players;
 
-            let res =  typeof parent.players[0].name != "undefined" ? parent.players :
-            await db.collection("players").find({
-                "_id": {
-                    $in: parent.players.map(p => {
-                        return ObjectId(p);
-                    })
-                }
-            }).toArray();
+            let res = typeof parent.players[0].name != "undefined" ? parent.players :
+                await db.collection("players").find({
+                    "_id": {
+                        $in: parent.players.map(p => {
+                            return ObjectId(p);
+                        })
+                    }
+                }).toArray();
             return res
         }
     },

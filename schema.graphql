@@ -69,6 +69,10 @@ type FogOfWar {
     polygons: JSON!
 }
 
+type Viewport {
+    matrix: JSON!
+}
+
 type Query {
     allPlayers: [Player!]!
     totalPlayers: Int!
@@ -90,6 +94,8 @@ type Query {
     getMaps: [Map!]!
 
     getMonsters: JSON!
+
+    getViewport: Viewport!
 }
 
 type Mutation {
@@ -102,6 +108,8 @@ type Mutation {
 
     updateFogOfWar (json: JSON!): FogOfWar!
 
+    updateViewport(matrix: JSON!): Viewport!
+
     loadMap(name: String!): BackgroundLayer!
     createMap(name: String!): [Map!]!
     deleteMap(name: String!): [Map!]!
@@ -111,4 +119,5 @@ type Subscription {
     updateCharacter: Character!
     updateBackgroundLayer: BackgroundLayer!
     updateFogOfWar: FogOfWar!
+    updateViewport: Viewport!
 }
