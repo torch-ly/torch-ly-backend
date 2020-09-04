@@ -69,6 +69,10 @@ type FogOfWar {
     polygons: JSON!
 }
 
+type InitiativeOrder {
+    order: JSON!
+}
+
 type Viewport {
     matrix: JSON!
 }
@@ -96,6 +100,8 @@ type Query {
     getMonsters: JSON!
 
     getViewport: Viewport!
+
+    getInitiative: InitiativeOrder!
 }
 
 type Mutation {
@@ -113,6 +119,8 @@ type Mutation {
     loadMap(name: String!): BackgroundLayer!
     createMap(name: String!): [Map!]!
     deleteMap(name: String!): [Map!]!
+
+    updateInitiative(order: JSON!): InitiativeOrder!
 }
 
 type Subscription {
@@ -120,4 +128,5 @@ type Subscription {
     updateBackgroundLayer: BackgroundLayer!
     updateFogOfWar: FogOfWar!
     updateViewport: Viewport!
+    updateInitiative: InitiativeOrder!
 }

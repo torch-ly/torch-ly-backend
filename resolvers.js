@@ -1,5 +1,6 @@
 import {queries as monsterQueries} from "./entities/monster";
 import {queries as mapQueries, mutations as mapMutations, subscriptions as mapSubscriptions} from "./entities/map/resolvers";
+import {queries as initiativeQueries, mutations as initiativeMutations, subscriptions as initiativeSubscriptions} from "./entities/initiative";
 import {
     queries as characterQueries,
     mutations as characterMutations,
@@ -17,14 +18,17 @@ const resolvers = {
         ...measuementQueries,
         ...mapQueries,
         ...monsterQueries,
+        ...initiativeQueries,
     },
     Mutation: {
         ...characterMutations,
         ...mapMutations,
+        ...initiativeMutations,
     },
     Subscription: {
         ...characterSubscriptions,
         ...mapSubscriptions,
+        ...initiativeSubscriptions,
     },
     Player: playerDetails,
     Character: characterDetails,
