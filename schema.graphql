@@ -69,12 +69,12 @@ type FogOfWar {
     polygons: JSON!
 }
 
-type InitiativeOrder {
-    order: JSON!
-}
-
 type Viewport {
     matrix: JSON!
+}
+
+type InitiativeOrder {
+    order: JSON!
 }
 
 type Query {
