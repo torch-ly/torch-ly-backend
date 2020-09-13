@@ -14,7 +14,6 @@ export const mutations = {
 
         let updated = hash(initiative) !== hash(args.order);
 
-        console.log(args.order)
         initiative = args.order;
 
         if (updated)
