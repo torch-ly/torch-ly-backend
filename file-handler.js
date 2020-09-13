@@ -52,7 +52,7 @@ export function getAllMaps() {
 
 export function setFileContent(content) {
     fileContent = {...fileContent, ...content};
-    console.log(fileContent)
+    console.log("Saving", fileContent);
     saveCurrentMap(lastMap);
 }
 
