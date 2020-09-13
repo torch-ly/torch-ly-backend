@@ -13,17 +13,19 @@ export function subscribeOnFileChange(method) {
 }
 
 export function loadMap(name) {
+    console.log(name)
     saveLastMap(name)
     fileContent = getMapContent(name);
-    notifySevices();
+    notifyServices();
 }
 
-function notifySevices() {
+function notifyServices() {
     subscribedOnFileChange.forEach(service => service());
 }
 
 export function saveLastMap(name) {
-    fs.writeFileSync("last-map.txt", name ? name + ".json" : lastMap);
+    lastMap = name;
+    fs.writeFileSync("last-map.txt", name + ".json");
 }
 
 export function getMapContent(name) {
