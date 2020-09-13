@@ -1,5 +1,6 @@
 import {PubSub} from 'graphql-subscriptions';
 import {createServer} from 'http';
+import {createServer as createHTTPSServer} from "https";
 import {SubscriptionServer} from 'subscriptions-transport-ws';
 import {execute, subscribe} from 'graphql';
 import {readFileSync} from "fs";
@@ -8,6 +9,7 @@ import resolvers from "./resolvers";
 import {setupDB} from "./db";
 import {loadMonstersFromFile} from "./entities/monster";
 import {validateAuthID} from "./entities/players";
+import * as fs from "fs";
 
 require("dotenv").config();
 
@@ -24,15 +26,24 @@ export let db;
 
 async function setup() {
 
-    const websocketServer = createServer((request, response) => {
+    let a = (request, response) => {
         response.writeHead(404);
         response.end();
-    });
+    }
+
+    let websocketServer = {};
+
+    if (process.env.HTTPS_KEY_PATH && process.env.HTTPS_CERT_PATH)
+        websocketServer = createHTTPSServer({
+            key: fs.readFileSync(process.env.HTTPS_KEY_PATH),
+            cert: fs.readFileSync(process.env.HTTPS_CERT_PATH)
+        }, a)
+    else
+        websocketServer = createServer(a);
 
     websocketServer.listen(WS_PORT, () => console.log(
         `Websocket Server is now running on port ${WS_PORT}`
     ));
-
 
     db = await setupDB();
 
