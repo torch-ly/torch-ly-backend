@@ -45,7 +45,7 @@ export function getAllMaps() {
     return fs.readdirSync(mapDir).map(a => {
         return {
             name: a.replace(".json", ""),
-            selected: a === lastMap
+            selected: a === lastMap + ".json"
         }
     });
 }
