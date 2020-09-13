@@ -1,9 +1,9 @@
 import {ObjectId} from "mongodb";
-import {db, pubsub} from "../../index"
-import {fileContent, setFileContent} from "../../file-handler";
+import {db, pubsub} from "../index"
+import {fileContent, setFileContent} from "../file-handler";
 import uniqid from "uniqid";
 
-function updateCharacters(character) {
+function updateCharacter(character) {
     pubsub.publish("character-update", {updateCharacter: character});
 }
 
@@ -89,6 +89,15 @@ export const mutations = {
 
         return removed;
     },
+    setCharacterPlayers: async (parent, args) => {
+        let character = getCharacterByID(args.id);
+
+        character.players = args.players;
+
+        updateCharacter(character);
+
+        return character;
+    }
 };
 
 export const subscriptions = {

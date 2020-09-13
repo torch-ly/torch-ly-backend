@@ -10,7 +10,7 @@ import {
     mutations as characterMutations,
     subscriptions as characterSubscriptions,
     details as characterDetails
-} from "./entities/character/resolvers";
+} from "./entities/characters";
 import {
     queries as backgroundLayerQueries,
     mutations as backgroundLayerMutations,

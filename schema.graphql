@@ -108,6 +108,7 @@ type Mutation {
     addCharacter (name: String, token: URL!, pos: PositionSquareInput!, sheet: URL, visible: Boolean, players: [String!]!): Character!
     setCharacterRotationAndSize (id: String!, rot: Float!, size: Int!): Character!
     removeCharacter (id: String!): Boolean
+    setCharacterPlayers (id: String!, players: [String!]!): Character!
 
     updateCharacterPosition (x: Int!, y: Int!, id: String!): Character!
     updateBackgroundLayer (layer: JSON!): BackgroundLayer!
