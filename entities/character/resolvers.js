@@ -8,7 +8,7 @@ function updateCharacters(character) {
 }
 
 function saveCharacters(characters) {
-    setFileContent({characters: characters});
+    setFileContent({characters: characters || fileContent.characters});
 }
 
 function addCharacter(character) {
