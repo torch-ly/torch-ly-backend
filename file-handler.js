@@ -1,4 +1,5 @@
 import fs from "fs";
+import trash from "trash";
 
 const mapDir = "maps/";
 
@@ -37,7 +38,7 @@ export function deleteMap(name) {
     if (lastMap.replace(".json", "") === name)
         throw new Error("You cannot delete the last or current map");
 
-    fs.unlinkSync(mapDir + name + ".json");
+    trash(mapDir + name + ".json");
 }
 
 export function getAllMaps() {
