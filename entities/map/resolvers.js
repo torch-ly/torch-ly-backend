@@ -1,13 +1,10 @@
-import {
-    backgroundLayer, deleteMap,
+/*import {
+    backgroundLayer,
     fogOfWar,
-    getAllMaps,
     loadMap,
     saveMap,
     setBackgroundLayer,
     setFogOfWar,
-    setViewport,
-    viewport
 } from "./index";
 import {pubsub} from "../../index";
 
@@ -22,10 +19,6 @@ export const queries = {
 
     getFogOfWar: () => {
         return {polygons: fogOfWar};
-    },
-
-    getViewport: () => {
-        return {matrix: viewport};
     }
 };
 
@@ -38,13 +31,6 @@ export const mutations = {
         pubsub.publish("fogofwar-update", {updateFogOfWar: {polygons: args.json}})
 
         return {polygons: fogOfWar};
-    },
-    updateViewport: (parent, args) => {
-        setViewport(args.matrix);
-
-        pubsub.publish("viewport-update", {updateViewport: {matrix: args.matrix}});
-
-        return {matrix: args.matrix};
     },
     updateBackgroundLayer: (parent, args) => {
         setBackgroundLayer(args.layer);
@@ -81,7 +67,4 @@ export const subscriptions = {
     updateFogOfWar: {
         subscribe: () => pubsub.asyncIterator("fogofwar-update")
     },
-    updateViewport: {
-        subscribe: () => pubsub.asyncIterator("viewport-update")
-    }
-};
+};*/

@@ -1,11 +1,11 @@
-import { PubSub } from 'graphql-subscriptions';
-import { createServer } from 'http';
-import { SubscriptionServer } from 'subscriptions-transport-ws';
-import { execute, subscribe } from 'graphql';
-import { readFileSync } from "fs";
-import { makeExecutableSchema } from 'graphql-tools';
+import {PubSub} from 'graphql-subscriptions';
+import {createServer} from 'http';
+import {SubscriptionServer} from 'subscriptions-transport-ws';
+import {execute, subscribe} from 'graphql';
+import {readFileSync} from "fs";
+import {makeExecutableSchema} from 'graphql-tools';
 import resolvers from "./resolvers";
-import { setupDB } from "./db";
+import {setupDB} from "./db";
 import {loadMonstersFromFile} from "./entities/monster";
 import {validateAuthID} from "./entities/players";
 

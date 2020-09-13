@@ -129,4 +129,6 @@ type Subscription {
     updateFogOfWar: FogOfWar!
     updateViewport: Viewport!
     updateInitiative: InitiativeOrder!
+
+    removeCharacter: ID!
 }

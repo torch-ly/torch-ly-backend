@@ -1,7 +1,7 @@
 import {pubsub} from "../index";
 import { default as hash } from "object-hash";
 
-export let initiative = [];
+let initiative = [];
 
 export const queries = {
     getInitiative: () => ({
