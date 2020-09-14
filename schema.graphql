@@ -22,6 +22,7 @@ type Character {
     players: [Player!]!
     id: ID!
     details: JSON
+    conditions: [String]
 }
 
 type Player {
@@ -111,6 +112,7 @@ type Mutation {
     removeCharacter (id: String!): Boolean
     setCharacterPlayers (id: String!, players: [String!]!): Character!
     setCharacterDetails(id: String!, details: JSON!): Character!
+    setCharacterConditions(id: String!, conditions: [String]!): Character!
 
     updateCharacterPosition (x: Int!, y: Int!, id: String!): Character!
     updateBackgroundLayer (layer: JSON!): BackgroundLayer!

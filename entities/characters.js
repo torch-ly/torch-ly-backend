@@ -44,6 +44,7 @@ export const mutations = {
         };
 
         character.token = character.token.href;
+        character.conditions = [];
 
         addCharacter(character);
 
@@ -102,6 +103,15 @@ export const mutations = {
         let character = getCharacterByID(args.id);
 
         character.details = args.details;
+
+        updateCharacter(character);
+
+        return character;
+    },
+    setCharacterConditions: (parent, args) => {
+        let character = getCharacterByID(args.id);
+
+        character.conditions = args.conditions;
 
         updateCharacter(character);
 
