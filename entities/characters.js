@@ -83,7 +83,7 @@ export const mutations = {
         let removed = newCharacters.length < fileContent.characters.length;
 
         if (removed) {
-            pubsub.publish("character-removed", id);
+            pubsub.publish("character-removed", {removeCharacter: id});
             saveCharacters(newCharacters);
         }
 

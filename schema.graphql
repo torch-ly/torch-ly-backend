@@ -133,5 +133,5 @@ type Subscription {
     updateViewport: Viewport!
     updateInitiative: InitiativeOrder!
 
-    removeCharacter: ID!
+    removeCharacter: String!
 }
