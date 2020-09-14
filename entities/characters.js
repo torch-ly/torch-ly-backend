@@ -75,7 +75,7 @@ export const mutations = {
 
         return character;
     },
-    removeCharacter: async (parent, args) => {
+    removeCharacter: (parent, args) => {
         let id = args.id;
 
         let newCharacters = fileContent.characters.filter(c => c._id !== id);
@@ -89,10 +89,19 @@ export const mutations = {
 
         return removed;
     },
-    setCharacterPlayers: async (parent, args) => {
+    setCharacterPlayers: (parent, args) => {
         let character = getCharacterByID(args.id);
 
         character.players = args.players;
+
+        updateCharacter(character);
+
+        return character;
+    },
+    setCharacterDetails: (parent, args) => {
+        let character = getCharacterByID(args.id);
+
+        character.details = args.details;
 
         updateCharacter(character);
 

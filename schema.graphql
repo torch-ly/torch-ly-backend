@@ -21,6 +21,7 @@ type Character {
     visible: Boolean
     players: [Player!]!
     id: ID!
+    details: JSON
 }
 
 type Player {
@@ -109,6 +110,7 @@ type Mutation {
     setCharacterRotationAndSize (id: String!, rot: Float!, size: Int!): Character!
     removeCharacter (id: String!): Boolean
     setCharacterPlayers (id: String!, players: [String!]!): Character!
+    setCharacterDetails(id: String!, details: JSON!): Character!
 
     updateCharacterPosition (x: Int!, y: Int!, id: String!): Character!
     updateBackgroundLayer (layer: JSON!): BackgroundLayer!
