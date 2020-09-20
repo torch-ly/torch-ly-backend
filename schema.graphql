@@ -104,6 +104,8 @@ type Query {
     getViewport: Viewport!
 
     getInitiative: InitiativeOrder!
+
+    getAllDrawingObjects: [JSON!]!
 }
 
 type Mutation {
@@ -126,6 +128,10 @@ type Mutation {
     deleteMap(name: String!): [Map!]!
 
     updateInitiative(order: JSON!): InitiativeOrder!
+
+    addDrawing (object: JSON!): [JSON!]!
+    removeDrawing (id: String!): Boolean!
+    clearAllDrawings (args: Boolean): Boolean!
 }
 
 type Subscription {
@@ -136,4 +142,8 @@ type Subscription {
     updateInitiative: InitiativeOrder!
 
     removeCharacter: String!
+
+    updateDrawing: JSON!
+    removeDrawing: String!
+    clearAllDrawings: Boolean
 }

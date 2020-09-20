@@ -28,6 +28,11 @@ import {
     mutations as viewportMutations,
     subscriptions as viewportSubscriptions
 } from "./entities/viewport";
+import {
+    queries as drawingQueries,
+    mutations as drawingMutations,
+    subscriptions as drawingSubscriptions
+} from "./entities/drawing";
 import {URLResolver, JSONResolver} from 'graphql-scalars';
 
 const resolvers = {
@@ -40,7 +45,8 @@ const resolvers = {
         ...initiativeQueries,
         ...backgroundLayerQueries,
         ...fogOfWarQueries,
-        ...viewportQueries
+        ...viewportQueries,
+        ...drawingQueries
     },
     Mutation: {
         ...characterMutations,
@@ -48,14 +54,16 @@ const resolvers = {
         ...initiativeMutations,
         ...backgroundLayerMutations,
         ...fogOfWarMutations,
-        ...viewportMutations
+        ...viewportMutations,
+        ...drawingMutations
     },
     Subscription: {
         ...characterSubscriptions,
         ...initiativeSubscriptions,
         ...backgroundLayerSubscriptions,
         ...fogOfWarSubscriptions,
-        ...viewportSubscriptions
+        ...viewportSubscriptions,
+        ...drawingSubscriptions
     },
     Player: playerDetails,
     Character: characterDetails,
