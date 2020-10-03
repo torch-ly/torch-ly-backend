@@ -96,6 +96,7 @@ export const mutations = {
         character.players = args.players;
 
         updateCharacter(character);
+        saveCharacters()
 
         return character;
     },
@@ -105,6 +106,7 @@ export const mutations = {
         character.details = args.details;
 
         updateCharacter(character);
+        saveCharacters();
 
         return character;
     },
@@ -114,6 +116,7 @@ export const mutations = {
         character.conditions = args.conditions;
 
         updateCharacter(character);
+        saveCharacters()
 
         return character;
     }
