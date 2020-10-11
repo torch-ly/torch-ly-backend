@@ -6,7 +6,6 @@ export const queries = {
 
 export const mutations = {
     pointTo: (parent, args) => {
-        console.log(args)
         let pointer = args.pointer;
         pubsub.publish("pointer-update", {updatePointTo: {point: {x: pointer.point.x, y: pointer.point.y}, color: pointer.color}});
 
