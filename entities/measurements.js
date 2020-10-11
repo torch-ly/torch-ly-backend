@@ -1,8 +1,21 @@
-import {db} from "../index";
-import {ObjectId} from "mongodb";
+import {pubsub} from "../index";
+import { default as hash } from "object-hash";
 
 export const queries = {
-    allMeasurements: async (parent, args) => await db.collection("measurement").find().toArray(),
-    totalMeasurements: async (parent, args) => await db.collection("measurement").estimatedDocumentCount(),
-    getMeasurementsByID: async (parent, args) => await db.collection("measurement").findOne(ObjectId(args.id)),
 }
+
+export const mutations = {
+    pointTo: (parent, args) => {
+        console.log(args)
+        let pointer = args.pointer;
+        pubsub.publish("pointer-update", {updatePointTo: {point: {x: pointer.point.x, y: pointer.point.y}, color: pointer.color}});
+
+        return {point: {x: pointer.point.x, y: pointer.point.y}, color: pointer.color};
+    },
+};
+
+export const subscriptions = {
+    updatePointTo: {
+        subscribe: () => pubsub.asyncIterator("pointer-update")
+    },
+};

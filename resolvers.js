@@ -17,7 +17,11 @@ import {
     subscriptions as backgroundLayerSubscriptions
 } from "./entities/backgroundlayer";
 import {queries as playerQueries, details as playerDetails} from "./entities/players";
-import {queries as measurementQueries} from "./entities/measurements";
+import {
+    queries as measurementQueries,
+    mutations as measurementMutations,
+    subscriptions as measurementSubscriptions
+} from "./entities/measurements";
 import {
     queries as fogOfWarQueries,
     mutations as fogOfWarMutations,
@@ -55,7 +59,8 @@ const resolvers = {
         ...backgroundLayerMutations,
         ...fogOfWarMutations,
         ...viewportMutations,
-        ...drawingMutations
+        ...drawingMutations,
+        ...measurementMutations
     },
     Subscription: {
         ...characterSubscriptions,
@@ -63,13 +68,17 @@ const resolvers = {
         ...backgroundLayerSubscriptions,
         ...fogOfWarSubscriptions,
         ...viewportSubscriptions,
-        ...drawingSubscriptions
+        ...drawingSubscriptions,
+        ...measurementSubscriptions
     },
     Player: playerDetails,
     Character: characterDetails,
     PositionSquare: {
         rot: parent => parent.rot || 0,
         size: parent => parent.size || 1
+    },
+    Pointer: {
+      color: parent => parent.color || 'black'
     },
     URL: URLResolver,
     JSON: JSONResolver

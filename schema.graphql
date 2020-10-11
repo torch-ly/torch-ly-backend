@@ -79,6 +79,16 @@ type InitiativeOrder {
     order: JSON!
 }
 
+type Pointer {
+    point: Point!
+    color: String
+}
+
+input PointerInput {
+    point: PointInput!
+    color: String
+}
+
 type Query {
     allPlayers: [Player!]!
     totalPlayers: Int!
@@ -88,10 +98,6 @@ type Query {
     allCharacters: [Character!]!
     totalCharacters: Int!
     getCharacterByID(id: ID!): Character
-
-    allMeasurements: [Measurement!]!
-    totalMeasurements: Int!
-    getMeasurementsByID(id: ID!): Measurement
 
     getBackgroundLayer: BackgroundLayer!
 
@@ -132,6 +138,8 @@ type Mutation {
     addDrawing (object: JSON!): [JSON!]!
     removeDrawing (id: String!): Boolean!
     clearAllDrawings (args: Boolean): Boolean!
+
+    pointTo (pointer: PointerInput!): Pointer!
 }
 
 type Subscription {
@@ -146,4 +154,6 @@ type Subscription {
     updateDrawing: JSON!
     removeDrawing: String!
     clearAllDrawings: Boolean
+
+    updatePointTo: Pointer!
 }
