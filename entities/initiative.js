@@ -21,6 +21,26 @@ export const mutations = {
 
         return {order: args.order};
     },
+
+    addToInitiative: (parent, args) => {
+
+        let characterAlreadyInOrder = initiative.filter(a => a.id === args.id).length > 0;
+
+        if (characterAlreadyInOrder)
+
+            initiative.filter(a => a.id === args.id)[0].value = args.value;
+
+        else
+
+            initiative.push({
+                id: args.id,
+                value: args.value
+            });
+
+        pubsub.publish("initiative-update", {updateInitiative: {order: initiative   }});
+
+        return {order: initiative};
+    }
 };
 
 export const subscriptions = {

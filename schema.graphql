@@ -134,6 +134,7 @@ type Mutation {
     deleteMap(name: String!): [Map!]!
 
     updateInitiative(order: JSON!): InitiativeOrder!
+    addToInitiative(id: String!, value: Int!): InitiativeOrder!
 
     addDrawing (object: JSON!): [JSON!]!
     removeDrawing (id: String!): Boolean!
