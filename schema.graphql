@@ -115,7 +115,7 @@ type Query {
 }
 
 type Mutation {
-    addCharacter (name: String, token: URL!, pos: PositionSquareInput!, sheet: URL, visible: Boolean, players: [String!]!): Character!
+    addCharacter (name: String, token: URL!, pos: PositionSquareInput!, sheet: URL, visible: Boolean, players: [String!]!, details: JSON): Character!
     setCharacterRotationAndSize (id: String!, rot: Float!, size: Int!): Character!
     removeCharacter (id: String!): Boolean
     setCharacterPlayers (id: String!, players: [String!]!): Character!
