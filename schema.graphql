@@ -121,6 +121,7 @@ type Mutation {
     setCharacterPlayers (id: String!, players: [String!]!): Character!
     setCharacterDetails(id: String!, details: JSON!): Character!
     setCharacterConditions(id: String!, conditions: [String]!): Character!
+    setCharacterName(id: String!, name: String!): Character!
 
     updateCharacterPosition (x: Int!, y: Int!, id: String!): Character!
     updateBackgroundLayer (layer: JSON!): BackgroundLayer!

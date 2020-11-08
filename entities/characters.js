@@ -119,6 +119,15 @@ export const mutations = {
         saveCharacters()
 
         return character;
+    },
+    setCharacterName: (parent, args) => {
+        let character = getCharacterByID(args.id);
+
+        character.name = args.name;
+        updateCharacter(character);
+        saveCharacters();
+
+        return character;
     }
 };
 
