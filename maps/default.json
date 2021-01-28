@@ -1,1 +1,8 @@
-{"bg":[{"pos":{"x":360,"y":0,"width":970.1207016278705,"height":1212.5590239742278},"snapToGrid":true,"type":"img","src":"https://media.macphun.com/img/uploads/customer/how-to/579/15531840725c93b5489d84e9.43781620.jpg?q=85&w=1340","rotation":0}],"fog":[],"characters":[{"name":"Adult Black Dragon","token":"https://5e.tools/img/MM/Adult%20Black%20Dragon.png","pos":{"point":{"x":5,"y":-2},"size":3},"players":["5f2997012b10402e988db93f"],"_id":"f3la24ukh3de37z","conditions":[]},{"name":"Abominable Yeti","token":"https://5e.tools/img/MM/Abominable%20Yeti.png","pos":{"point":{"x":5,"y":1},"size":3},"players":[],"_id":"f3la24ukh3dv3yh","conditions":[]},{"name":"Abhorrent Overlord","token":"https://5e.tools/img/MOT/Abhorrent%20Overlord.png","pos":{"point":{"x":4,"y":3},"size":2},"players":["5f2997012b10402e988db93f"],"_id":"430s6j308kh99vbn8","conditions":[]},{"name":"Acererak","token":"https://5e.tools/img/ToA/Acererak.png","pos":{"point":{"x":2,"y":1},"size":1},"players":["5f2997012b10402e988db93f"],"_id":"430s6j308kh9a3x10","conditions":[]},{"name":"Acolyte","token":"https://5e.tools/img/MM/Acolyte.png","pos":{"point":{"x":3,"y":3},"size":1},"players":["5f2997012b10402e988db93f"],"_id":"430s6j308kh9aj9c6","conditions":[]}]}
+{
+  "bg": [
+  ],
+  "fog": [
+  ],
+  "characters": [
+  ]
+}
