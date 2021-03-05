@@ -22,15 +22,15 @@ export const details = {
 export const mutations = {
     addPlayer: async (parent, args) => {
 
-        await db.collection("players").insert({
+        let id = (await db.collection("players").insertOne({
             name: args.name,
             authID: cryptoRandomString(87) // generate random authID
-        });
+        })).ops[0]._id;
 
         let player = {
             name: args.name,
-            id: "temp",
-            gm: args.gm
+            gm: args.gm,
+            id
         };
 
         pubsub.publish("player-update", {updatePlayer: player});
