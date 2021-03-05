@@ -37,10 +37,28 @@ export const mutations = {
                 value: args.value
             });
 
-        pubsub.publish("initiative-update", {updateInitiative: {order: initiative   }});
+        pubsub.publish("initiative-update", {updateInitiative: {order: initiative}});
 
         return {order: initiative};
-    }
+    },
+
+    orderInitiative: (parent, args) => {
+
+        initiative.sort((a, b) => b.value - a.value);
+
+        pubsub.publish("initiative-update", {updateInitiative: {order: initiative}});
+
+        return {order: initiative};
+    },
+
+    nextTurn: (parent, args) => {
+
+        initiative.push(initiative.shift());
+
+        pubsub.publish("initiative-update", {updateInitiative: {order: initiative}});
+
+        return {order: initiative};
+    },
 };
 
 export const subscriptions = {

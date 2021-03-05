@@ -136,6 +136,8 @@ type Mutation {
 
     updateInitiative(order: JSON!): InitiativeOrder!
     addToInitiative(id: String!, value: Int!): InitiativeOrder!
+    orderInitiative: InitiativeOrder!
+    nextTurn: InitiativeOrder!
 
     addDrawing (object: JSON!): [JSON!]!
     removeDrawing (id: String!): Boolean!
