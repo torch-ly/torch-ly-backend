@@ -11,7 +11,7 @@ export const queries = {
 
 export const details = {
     id: parent => parent.id || parent._id,
-    gm: parent => process.env.GM.includes(parent.id || parent._id),
+    //gm: parent => process.env.GM.includes(parent.id || parent._id),
     characters: async (parent, args) => await db.collection("characters").find({
         players: {
             $in: [parent.id || parent._id]
@@ -24,6 +24,7 @@ export const mutations = {
 
         let id = (await db.collection("players").insertOne({
             name: args.name,
+            gm: args.gm || false,
             authID: cryptoRandomString(87) // generate random authID
         })).ops[0]._id;
 
