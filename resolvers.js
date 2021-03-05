@@ -16,7 +16,12 @@ import {
     mutations as backgroundLayerMutations,
     subscriptions as backgroundLayerSubscriptions
 } from "./entities/backgroundlayer";
-import {queries as playerQueries, details as playerDetails} from "./entities/players";
+import {
+    queries as playerQueries,
+    mutations as playerMutations,
+    subscriptions as playerSubscriptions,
+    details as playerDetails
+} from "./entities/players";
 import {
     queries as measurementQueries,
     mutations as measurementMutations,
@@ -60,7 +65,8 @@ const resolvers = {
         ...fogOfWarMutations,
         ...viewportMutations,
         ...drawingMutations,
-        ...measurementMutations
+        ...measurementMutations,
+        ...playerMutations,
     },
     Subscription: {
         ...characterSubscriptions,
@@ -69,7 +75,8 @@ const resolvers = {
         ...fogOfWarSubscriptions,
         ...viewportSubscriptions,
         ...drawingSubscriptions,
-        ...measurementSubscriptions
+        ...measurementSubscriptions,
+        ...playerSubscriptions
     },
     Player: playerDetails,
     Character: characterDetails,

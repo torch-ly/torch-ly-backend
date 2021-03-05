@@ -142,6 +142,9 @@ type Mutation {
     clearAllDrawings (args: Boolean): Boolean!
 
     pointTo (pointer: PointerInput!): Pointer!
+
+    addPlayer (name: String!, gm: Boolean): Player!
+    removePlayer (id: String!): Boolean!
 }
 
 type Subscription {
@@ -158,4 +161,7 @@ type Subscription {
     clearAllDrawings: Boolean
 
     updatePointTo: Pointer!
+
+    updatePlayer: Player!
+    removePlayer: String!
 }

@@ -1,5 +1,6 @@
-import {db} from "../index";
+import {db, pubsub} from "../index";
 import {ObjectId} from "mongodb";
+import cryptoRandomString from "crypto-random-string";
 
 export const queries = {
     allPlayers: async (parent, args) => await db.collection("players").find().toArray(),
@@ -16,6 +17,45 @@ export const details = {
             $in: [parent.id || parent._id]
         }
     }).toArray()
+};
+
+export const mutations = {
+    addPlayer: async (parent, args) => {
+
+        await db.collection("players").insert({
+            name: args.name,
+            authID: cryptoRandomString(87) // generate random authID
+        });
+
+        let player = {
+            name: args.name,
+            id: "temp",
+            gm: args.gm
+        };
+
+        pubsub.publish("player-update", {updatePlayer: player});
+
+        return player;
+    },
+    removePlayer: async (parent, args) => {
+
+        let id = parent.id;
+
+        await db.collection("players").deleteOne( {"_id": ObjectId(id)});
+
+        pubsub.publish("player-removed", {removePlayer: id});
+
+        return true;
+    },
+};
+
+export const subscriptions = {
+    updatePlayer: {
+        subscribe: () => pubsub.asyncIterator("player-update")
+    },
+    removePlayer: {
+        subscribe: () => pubsub.asyncIterator("player-removed")
+    }
 };
 
 export function validateAuthID(authID) {
