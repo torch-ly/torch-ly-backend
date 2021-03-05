@@ -40,7 +40,7 @@ export const mutations = {
     },
     removePlayer: async (parent, args) => {
 
-        let id = parent.id;
+        let id = args.id;
 
         await db.collection("players").deleteOne( {"_id": ObjectId(id)});
 
