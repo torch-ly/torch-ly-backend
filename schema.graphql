@@ -125,7 +125,10 @@ type Mutation {
 
     updateCharacterPosition (x: Int!, y: Int!, id: String!): Character!
     updateRelativeCharacterPosition (x: Int!, y: Int!, id: String!): Character!
+
     updateBackgroundLayer (layer: JSON!): BackgroundLayer!
+    addBackgroundLayerObject (object: JSON!): BackgroundLayer!
+    removeBackgroundLayerObject (id: String!): BackgroundLayer!
 
     updateFogOfWar (json: JSON!): FogOfWar!
 

@@ -36,6 +36,17 @@ export const mutations = {
         saveUpdatedBackgroundLayer(args.layer);
         return {layer: getBackgroundLayer()};
     },
+    addBackgroundLayerObject: (parent, args) => {
+
+        args._id = uniqid();
+
+        saveUpdatedBackgroundLayer(args.layer);
+        return {layer: getBackgroundLayer()};
+    },
+    removeBackgroundLayerObject: (parent, args) => {
+        saveUpdatedBackgroundLayer(args.layer.filter((obj) => obj._id !== args.id));
+        return {layer: getBackgroundLayer()};
+    }
 };
 
 export const subscriptions = {
