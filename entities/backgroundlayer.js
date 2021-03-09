@@ -44,7 +44,7 @@ export const mutations = {
         return {layer: getBackgroundLayer()};
     },
     removeBackgroundLayerObject: (parent, args) => {
-        saveUpdatedBackgroundLayer(args.layer.filter((obj) => obj._id !== args.id));
+        saveUpdatedBackgroundLayer(getBackgroundLayer().filter((obj) => obj._id !== args.id));
         return {layer: getBackgroundLayer()};
     }
 };
