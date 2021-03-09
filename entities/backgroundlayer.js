@@ -40,7 +40,7 @@ export const mutations = {
 
         args.object._id = uniqid();
 
-        saveUpdatedBackgroundLayer([[...getBackgroundLayer()], args.object]);
+        saveUpdatedBackgroundLayer([...getBackgroundLayer(), args.object]);
         return {layer: getBackgroundLayer()};
     },
     removeBackgroundLayerObject: (parent, args) => {
