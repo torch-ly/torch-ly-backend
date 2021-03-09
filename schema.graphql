@@ -131,6 +131,8 @@ type Mutation {
     removeBackgroundLayerObject (id: String!): BackgroundLayer!
 
     updateFogOfWar (json: JSON!): FogOfWar!
+    addFogOfWarObject (json: JSON!): FogOfWar!
+    removeFogOfWarObject (id: String!): FogOfWar!
 
     updateViewport(matrix: JSON!): Viewport!
 
