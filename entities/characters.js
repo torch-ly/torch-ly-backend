@@ -76,6 +76,18 @@ export const mutations = {
 
         return character;
     },
+    updateRelativeCharacterPosition: (parent, args) => {
+        let character = getCharacterByID(args.id);
+
+        character.pos.point.x += args.x;
+        character.pos.point.y += args.y;
+
+        pubsub.publish("character-update", {updateCharacter: character});
+
+        saveCharacters();
+
+        return character;
+    },
     removeCharacter: (parent, args) => {
         let id = args.id;
 
