@@ -1,5 +1,6 @@
 import {fileContent, setFileContent, subscribeOnFileChange} from "../file-handler";
 import {pubsub} from "../index";
+import uniqid from "uniqid";
 
 // will be called for all background layer updates not caused by the background layer mutations
 function updateBackgroundLayer() {
@@ -27,6 +28,11 @@ export const queries = {
 
 export const mutations = {
     updateBackgroundLayer: (parent, args) => {
+
+        for (let obj of args.layer) {
+            obj._id = uniqid();
+        }
+
         saveUpdatedBackgroundLayer(args.layer);
         return {layer: getBackgroundLayer()};
     },
