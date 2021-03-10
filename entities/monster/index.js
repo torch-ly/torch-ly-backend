@@ -5,7 +5,7 @@ export let monsters = [];
 
 export function loadMonstersFromFile () {
     try {
-        monsters = fs.readFileSync("entities/monster/monsters.json","utf-8") || [];
+        monsters = fs.readFileSync("entities/monster/monsters.json","utf-8") || ["empty"];
     } catch {
         console.error("monsters.json not available");
     }
