@@ -50,17 +50,15 @@ export const mutations = {
     },
     changePlayerName: async (parent, args) => {
 
-        let id = args.id;
+        let player = await db.collection("players").findOne(ObjectId(args.id));
 
-        await db.collection("players").findOneAndUpdate(ObjectId(args.id), {
-            name: args.name,
-        });
+        player.name = args.name;
 
-        let newPlayer = await db.collection("players").findOne(ObjectId(args.id));
+        await db.collection("players").findOneAndReplace(ObjectId(args.id), player);
 
-        pubsub.publish("player-update", {updatePlayer: newPlayer});
+        pubsub.publish("player-update", {updatePlayer: player});
 
-        return newPlayer;
+        return player;
     },
 };
 
