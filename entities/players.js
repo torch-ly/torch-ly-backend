@@ -54,7 +54,7 @@ export const mutations = {
 
         player.name = args.name;
 
-        await db.collection("players").findOneAndReplace(ObjectId(args.id), player);
+        await db.collection("players").findOneAndReplace({_id: ObjectId(args.id)}, player);
 
         pubsub.publish("player-update", {updatePlayer: player});
 
