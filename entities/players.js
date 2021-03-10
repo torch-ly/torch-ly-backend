@@ -48,6 +48,20 @@ export const mutations = {
 
         return true;
     },
+    changePlayerName: async (parent, args) => {
+
+        let id = args.id;
+
+        await db.collection("players").findOneAndUpdate(ObjectId(args.id), {
+            name: args.name,
+        });
+
+        let newPlayer = await db.collection("players").findOne(ObjectId(args.id));
+
+        pubsub.publish("player-update", {updatePlayer: newPlayer});
+
+        return newPlayer;
+    },
 };
 
 export const subscriptions = {

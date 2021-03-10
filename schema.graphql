@@ -153,6 +153,8 @@ type Mutation {
 
     addPlayer (name: String!, gm: Boolean): Player!
     removePlayer (id: String!): Boolean
+    changePlayerName (id: String!, name: String!): Player!
+
 }
 
 type Subscription {
