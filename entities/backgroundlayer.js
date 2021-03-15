@@ -3,9 +3,9 @@ import {pubsub} from "../index";
 import uniqid from "uniqid";
 
 // will be called for all background layer updates not caused by the background layer mutations
-function updateBackgroundLayer() {
-    pubsub.publish("background-update", {updateBackgroundLayer: {layer: getBackgroundLayer()}});
-}
+//function updateBackgroundLayer() {
+//    pubsub.publish("background-update", {updateBackgroundLayer: {layer: getBackgroundLayer()}});
+//}
 
 export function getBackgroundLayer() {
     return fileContent.bg;
@@ -15,10 +15,10 @@ function saveUpdatedBackgroundLayer(layer) {
     let content = {bg: layer};
 
     setFileContent(content);
-    updateBackgroundLayer();
+    // updateBackgroundLayer();
 }
 
-subscribeOnFileChange(updateBackgroundLayer);
+// subscribeOnFileChange(updateBackgroundLayer);
 
 export const queries = {
     getBackgroundLayer: () => ({
@@ -41,10 +41,16 @@ export const mutations = {
         args.object._id = uniqid();
 
         saveUpdatedBackgroundLayer([...getBackgroundLayer(), args.object]);
+
+        pubsub.publish("update-background-layer-object", {updateBackgroundLayerObject: args.object});
+
         return {layer: getBackgroundLayer()};
     },
     removeBackgroundLayerObject: (parent, args) => {
         saveUpdatedBackgroundLayer(getBackgroundLayer().filter((obj) => obj._id !== args.id));
+
+        pubsub.publish("remove-background-layer-object", {removeBackgroundLayerObject: args.id});
+
         return {layer: getBackgroundLayer()};
     }
 };
@@ -53,4 +59,10 @@ export const subscriptions = {
     updateBackgroundLayer: {
         subscribe: () => pubsub.asyncIterator("background-update")
     },
+    updateBackgroundLayerObject: {
+        subscribe: () => pubsub.asyncIterator("update-background-layer-object")
+    },
+    removeBackgroundLayerObject: {
+        subscribe: () => pubsub.asyncIterator("remove-background-layer-object")
+    }
 };

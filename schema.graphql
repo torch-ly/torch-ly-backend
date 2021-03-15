@@ -159,12 +159,17 @@ type Mutation {
 
 type Subscription {
     updateCharacter: Character!
-    updateBackgroundLayer: BackgroundLayer!
-    updateFogOfWar: FogOfWar!
-    updateViewport: Viewport!
-    updateInitiative: InitiativeOrder!
-
     removeCharacter: String!
+
+    updateBackgroundLayer: BackgroundLayer!
+    updateBackgroundLayerObject: JSON!
+    removeBackgroundLayerObject: String!
+
+    updateFogOfWar: FogOfWar!
+
+    updateViewport: Viewport!
+
+    updateInitiative: InitiativeOrder!
 
     updateDrawing: JSON!
     removeDrawing: String!

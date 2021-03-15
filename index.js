@@ -26,9 +26,22 @@ export let db;
 
 async function setup() {
 
-    let a = (request, response) => {
-        response.writeHead(404);
-        response.end();
+    let a = (req, res) => {
+        if (req.method === 'POST' && req.url === "/cli/upload") {
+
+            let body = ''
+
+            req.on('data', (data) => body += data);
+
+            req.on('end', () => {
+                console.log('Body: ' + body)
+                res.writeHead(200)
+                res.end('post received')
+            })
+        } else {
+            res.writeHead(501);
+            res.end();
+        }
     }
 
     let websocketServer = {};
@@ -38,8 +51,9 @@ async function setup() {
             key: fs.readFileSync(process.env.HTTPS_KEY_PATH),
             cert: fs.readFileSync(process.env.HTTPS_CERT_PATH)
         }, a)
-    else
+    else {
         websocketServer = createServer(a);
+    }
 
     websocketServer.listen(WS_PORT, () => console.log(
         `Websocket Server is now running on port ${WS_PORT}`
