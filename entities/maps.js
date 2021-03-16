@@ -1,5 +1,6 @@
 import {deleteMap, getAllMaps, loadMap, saveCurrentMap} from "../file-handler";
 import {getBackgroundLayer} from "./backgroundlayer";
+import {pubsub} from "../index";
 
 export const queries = {
     getMaps: () => {
@@ -10,6 +11,8 @@ export const queries = {
 export const mutations = {
     loadMap: (parent, args) => {
         loadMap(args.name);
+
+        pubsub.publish("background-update", {updateBackgroundLayer: {layer: getBackgroundLayer()}});
 
         return {layer: getBackgroundLayer()};
     },
