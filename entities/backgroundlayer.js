@@ -38,11 +38,12 @@ export const mutations = {
     },
     addBackgroundLayerObject: (parent, args) => {
 
-        args.object._id = uniqid();
+        if (!args.object._id)
+            args.object._id = uniqid();
 
         console.log("Add background layer object", args, args.object);
 
-        saveUpdatedBackgroundLayer([...getBackgroundLayer(), args.object]);
+        saveUpdatedBackgroundLayer([...(getBackgroundLayer().filter(obj => obj._id !== args.object._id)), args.object]);
 
         pubsub.publish("update-background-layer-object", {updateBackgroundLayerObject: args.object});
 
